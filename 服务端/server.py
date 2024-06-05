@@ -22,7 +22,6 @@ def sendmsg(message):
         return data.decode()
     else:
         print("超时")
-    # 关闭套接字
     sock.close()
     return "空"
 if __name__ == '__main__':
