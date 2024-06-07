@@ -65,6 +65,7 @@ def motor_start(num):
     p26.value(dire_fan)
 
 
+
 ap = network.WLAN(network.MODE_11B)
 
 ap.active(True)
@@ -152,7 +153,16 @@ while True:
         # 没有数据可读，发生了超时
         print('接收数据超时')
         ready = select.select([sock], [], [], 1)
+    print(getdht())
 
+    chinese('温度', 16, 4)
+    chinese(getchinese_num(str(tempAndRh[0])), 16, 32)
+    chinese(getchinese_num(str(tempAndRh[1])), 80, 32)
+    chinese('湿度', 80, 4)
+    OLED.show()
+    if isAuto:
+        tempAndRh[0], tempAndRh[1] = getdht()
+        auto(tempAndRh[value_TempAndRh])
 
 
 
