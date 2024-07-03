@@ -363,6 +363,7 @@ while True:
                 (str(tempAndRh[0]) + "-" + str(tempAndRh[1]) + "-" + str(threshold_low) + "-" + str(
                     threshold_high)).encode(),
                 addr)
+            timer_mode = False
             isAuto = False
             power = Pin(2, Pin.OUT)
             power.on()
@@ -372,10 +373,64 @@ while True:
                 (str(tempAndRh[0]) + "-" + str(tempAndRh[1]) + "-" + str(threshold_low) + "-" + str(
                     threshold_high)).encode(),
                 addr)
+            timer_mode = False
             isAuto = False
             power = Pin(2, Pin.OUT)
             power.off()
             motor_shutdown()
+        if (action == "0"):
+            timer_mode = False
+            isAuto = False
+            sock.sendto(
+                (str(tempAndRh[0]) + "-" + str(tempAndRh[1]) + "-" + str(threshold_low) + "-" + str(
+                    threshold_high)).encode(),
+                addr)
+            power = Pin(2, Pin.OUT)
+            power.off()
+            motor_shutdown()
+        if (action == "1"):
+            timer_mode = False
+            isAuto = False
+            sock.sendto(
+                (str(tempAndRh[0]) + "-" + str(tempAndRh[1]) + "-" + str(threshold_low) + "-" + str(
+                    threshold_high)).encode(),
+                addr)
+            motor_start(500)
+        if (action == "2"):
+            timer_mode = False
+            isAuto = False
+            sock.sendto(
+                (str(tempAndRh[0]) + "-" + str(tempAndRh[1]) + "-" + str(threshold_low) + "-" + str(
+                    threshold_high)).encode(),
+                addr)
+            motor_start(800)
+        if (action == "3"):
+            timer_mode = False
+            isAuto = False
+            sock.sendto(
+                (str(tempAndRh[0]) + "-" + str(tempAndRh[1]) + "-" + str(threshold_low) + "-" + str(
+                    threshold_high)).encode(),
+                addr)
+            motor_start(1023)
+        if (action == "4"):
+            timer_mode = False
+            sock.sendto(
+                (str(tempAndRh[0]) + "-" + str(tempAndRh[1]) + "-" + str(threshold_low) + "-" + str(
+                    threshold_high)).encode(),
+                addr)
+            isAuto = True
+            power = Pin(2, Pin.OUT)
+            power.on()
+        if (action == "5"):
+            timer_mode = False
+            sock.sendto(
+                (str(tempAndRh[0]) + "-" + str(tempAndRh[1]) + "-" + str(threshold_low) + "-" + str(
+                    threshold_high)).encode(),
+                addr)
+            isAuto = False
+            dire_fan = 1 - dire_fan
+            motor_start(800)
+            
         if (action == "温湿切换"):
             value_TempAndRh = int(data.decode().split("-")[1])
             sock.sendto(
@@ -384,6 +439,7 @@ while True:
                 addr)
 
         if (action == "反转"):
+            timer_mode = False
             isAuto = False
             sock.sendto(
                 (str(tempAndRh[0]) + "-" + str(tempAndRh[1]) + "-" + str(threshold_low) + "-" + str(
@@ -392,6 +448,7 @@ while True:
             dire_fan = 1 - dire_fan
             motor_start(800)
         if (action == "setvalue"):
+            timer_mode = False
             isAuto = True
             sock.sendto(
                 (str(tempAndRh[0]) + "-" + str(tempAndRh[1]) + "-" + str(threshold_low) + "-" + str(
@@ -421,7 +478,7 @@ while True:
     if show_status == 0:
        show_detail()
     else:
-       show_chinese()
+        show_chinese()
 
 
 
